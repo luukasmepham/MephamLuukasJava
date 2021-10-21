@@ -22,18 +22,22 @@ public class Course {
               }
       }
   
-  public void courseRead() {
-        try {
-          File Reader = new File("/Users/luukasmepham/Documents/MephamLuukasJava/courseapp/src/main/java/com/courseapp/courseapp/Courses.txt");
-          Scanner output = new Scanner(Reader);
-          while (output.hasNextLine()) {
-            String data = output.nextLine();
-            System.out.println(data);
+  public static String courseRead(int par) {
+
+    String data = null;
+      if (par == 1) {
+          try {
+            File Reader = new File("/Users/luukasmepham/Documents/MephamLuukasJava/courseapp/src/main/java/com/courseapp/courseapp/Courses.txt");
+            Scanner output = new Scanner(Reader);
+            while (output.hasNextLine()) {
+            data = output.nextLine();
+            }
+            output.close();
+          } catch (FileNotFoundException e) {
+            System.out.println("An error occurred while trying to read the file.");
+            e.printStackTrace();
           }
-          output.close();
-        } catch (FileNotFoundException e) {
-          System.out.println("An error occurred while trying to read the file.");
-          e.printStackTrace();
-        }
       }
+    return data;
+  }
 }
