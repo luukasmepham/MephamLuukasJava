@@ -2,9 +2,6 @@ package com.courseapp.courseapp.models;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Course {
 
     private static AtomicInteger count = new AtomicInteger(0); 

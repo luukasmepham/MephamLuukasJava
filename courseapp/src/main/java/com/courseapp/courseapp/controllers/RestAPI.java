@@ -1,5 +1,6 @@
 package com.courseapp.courseapp.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.courseapp.courseapp.models.Course;
@@ -26,13 +27,21 @@ public class RestAPI {
     }
 
     @GetMapping("/courses")
-    public List<Course> getCourses() {
-        return courseService.getCourses();
+    public List<String> getCourses() {
+        return null;
     }
 
     @GetMapping("/students")
-    public List<Student> getStudents() {
-        return courseService.getStudents();
+    public List<String> getStudents() {
+
+        List<String> allStudents = new ArrayList<>();
+        List<Student> students = courseService.getStudents();
+
+        for (Student a : students) {
+            allStudents.add(a.getStudent());
+        }
+
+        return allStudents;
     }
 
     @GetMapping("/courses/{id}")

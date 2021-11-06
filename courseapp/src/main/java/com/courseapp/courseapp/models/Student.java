@@ -1,10 +1,9 @@
 package com.courseapp.courseapp.models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Student {
 
     private static AtomicInteger count = new AtomicInteger(0); 
@@ -17,15 +16,13 @@ public class Student {
         this.studentId = count.incrementAndGet(); 
     }
 
-    public String toString() {
+    public String getStudent() {
 
         StringBuilder builder = new StringBuilder();
-
-        builder.append(String.valueOf(studentId));
-        builder.append(", ");
         builder.append(name);
+        String fullName = builder.toString();
 
-        return builder.toString();
+        return fullName;
     }
     
 }

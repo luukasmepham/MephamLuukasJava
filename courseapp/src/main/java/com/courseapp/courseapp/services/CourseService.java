@@ -14,10 +14,8 @@ import java.util.List;
 @Service
 public class CourseService implements ICourseService {
 
-    @Autowired
     private List<Student> students;
 
-    @Autowired
     private List<Course> courses;
 
     public CourseService() throws FileNotFoundException {
@@ -47,7 +45,6 @@ public class CourseService implements ICourseService {
 
     @Override
     public Student getStudentById(long studentId) {
-        // TODO Auto-generated method stub
         return null;
     }
 
