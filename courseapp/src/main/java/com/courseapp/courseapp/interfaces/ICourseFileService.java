@@ -1,7 +1,7 @@
 package com.courseapp.courseapp.interfaces;
 
-import com.courseapp.courseapp.Course;
-import com.courseapp.courseapp.Student;
+import com.courseapp.courseapp.models.Course;
+import com.courseapp.courseapp.models.Student;
 
 import java.util.List;
 import java.io.FileNotFoundException;

@@ -2,8 +2,8 @@ package com.courseapp.courseapp.interfaces;
 
 import java.util.List;
 
-import com.courseapp.courseapp.Course;
-import com.courseapp.courseapp.Student;
+import com.courseapp.courseapp.models.Course;
+import com.courseapp.courseapp.models.Student;
 
 public interface ICourseService {
 
