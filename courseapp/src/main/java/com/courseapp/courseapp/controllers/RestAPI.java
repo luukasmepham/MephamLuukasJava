@@ -40,6 +40,21 @@ public class RestAPI {
         return courseService.getStudents();
     }
 
+    @GetMapping(path = "/onlinecourses", produces = MediaType.TEXT_HTML_VALUE)
+    public String getOnlineCourses() {
+
+        String onlineCourses = "";
+
+        List<Course> OnlineCourses = courseService.getCourses();
+            for (Course course : OnlineCourses) {
+                if (course.courseType() == true) {
+                    onlineCourses += "<p>" + course.getCourse() + "</p>\n";
+                }
+            }
+
+        return "<html>\n" + "<header><title></title></header>\n" + "<body>\n" + onlineCourses + "</body>\n" + "</html>";
+    }
+
     @GetMapping(path = "/courses/{id}", produces = MediaType.TEXT_HTML_VALUE)
     public String getCourseById(@PathVariable(value = "id") long courseId) {
 
@@ -47,11 +62,11 @@ public class RestAPI {
         String students = "";
 
         List<String> listOfStudents = courseService.getCourseById(courseId).studentNames();
-            for (String student : listOfStudents) {students += "<p>" + student + "</p>\n";}
+            for (String student : listOfStudents) {
+                students += "<p>" + student + "</p>\n";
+            }
 
-        return "<html>\n" + 
-        "<header><title></title></header>\n" + 
-        "<body>\n" + "<h2>" + course + "</h2>\n" + students + "</body>\n" + "</html>";
+        return "<html>\n" + "<header><title></title></header>\n" + "<body>\n" + "<h2>" + course + "</h2>\n" + students + "</body>\n" + "</html>";
     }
 
     @GetMapping(path = "/students/{id}", produces = MediaType.TEXT_HTML_VALUE)
@@ -61,7 +76,9 @@ public class RestAPI {
         String courses = "";
 
         List<Course> listOfCourses = courseService.getCoursesOfStudent(studentId);
-            for (Course course : listOfCourses) {courses += "<p>" + course.courseName() + "</p>\n";}
+            for (Course course : listOfCourses) {
+                courses += "<p>" + course.courseName() + "</p>\n";
+            }
 
         return "<html>\n" + "<header><title></title></header>\n" + "<body>\n" + "<h2>" + student + "</h2>\n"  + courses + "</body>\n" + "</html>";
     }

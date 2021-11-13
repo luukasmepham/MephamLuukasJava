@@ -6,7 +6,7 @@ public class Student {
 
     private static AtomicInteger count = new AtomicInteger(0); 
 
-    private long studentId;
+    private final long studentId;
     private String f_name;
     private String l_name;
 

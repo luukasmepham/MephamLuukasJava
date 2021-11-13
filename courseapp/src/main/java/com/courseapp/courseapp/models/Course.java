@@ -6,12 +6,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Course {
 
+    private OnlineCourse online;
+    private LocalCourse local;
+
     private static AtomicInteger count = new AtomicInteger(0); 
 
-    private long courseId;
+    private final long courseId;
     private String course_name;
     private String teacher_name;
-    private String location;
+
+    private boolean isOnline = false;
+
     private List<Student> students = new ArrayList<>();
 
     public Course(String name) {
@@ -21,11 +26,19 @@ public class Course {
         String[] names = name.split("@");
         String course_name = names[0];
         String teacher_name = names[1];
-        String location = names[2];
+
+        if (names.length == 4) {
+            OnlineCourse newOnlineCourse = new OnlineCourse(names[0], names[2]);
+            this.online = newOnlineCourse;
+            this.isOnline = true;
+        }
+        else if (names.length == 3) {
+            LocalCourse newLocalCourse = new LocalCourse(names[0], names[2]);
+            this.local = newLocalCourse;
+        }
 
         this.course_name = course_name;
         this.teacher_name = teacher_name;
-        this.location = location;
     }
 
     public String courseName() {
@@ -44,8 +57,16 @@ public class Course {
         return this.teacher_name;
     }
 
-    public String getLocation() {
-        return this.location;
+    public String getAddress() {
+        if (isOnline == true) {
+            return online.getLink();
+        }
+        else if (isOnline == false) {
+            return local.getRoom();
+        }
+        else {
+            return "No address";
+        } 
     }
 
     public List<Student> getStudents() {
@@ -77,5 +98,9 @@ public class Course {
                 studentNames.add(student.studentName());
             }
         return studentNames;
+    }
+
+    public boolean courseType() {
+        return isOnline;
     }
 }
