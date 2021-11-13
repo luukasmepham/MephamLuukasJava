@@ -28,18 +28,10 @@ public class Course {
         this.location = location;
     }
 
-    /*
-    public String toString() {
+    public String courseName() {
 
-        StringBuilder builder = new StringBuilder();
-
-        builder.append(String.valueOf(courseId));
-        builder.append(", ");
-        builder.append(name);
-
-        return builder.toString();
+        return course_name;
     }
-    */
 
     public long getId() {
         return this.courseId;
@@ -72,6 +64,28 @@ public class Course {
         else {
             return false;
         }
+    }
+
+    public boolean getStudent(Student student) {
+
+        if (students.contains(student)) {
+            return true;
+        }
+
+        else {
+            return false;
+        }
+    }
+
+    public List<String> studentNames() {
+
+        List<String> studentNames = new ArrayList<>();
+        
+        for (Student student : students) {
+            studentNames.add(student.studentName());
+        }
+
+        return studentNames;
     }
 
 

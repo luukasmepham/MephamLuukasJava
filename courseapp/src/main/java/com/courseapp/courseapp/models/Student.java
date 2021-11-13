@@ -10,6 +10,10 @@ public class Student {
     private String f_name;
     private String l_name;
 
+    public Student() {
+        
+    }
+
     public Student(String name) {
 
         this.studentId = count.incrementAndGet(); 
@@ -22,19 +26,11 @@ public class Student {
         this.l_name = l_name;
     }
 
-    /*
 
-    public String getStudent() {
+    public String studentName() {
 
-        StringBuilder builder = new StringBuilder();
-        builder.append(l_name);
-        builder.append(" ");
-        builder.append(f_name);
-        String fullName = builder.toString();
-
-        return fullName;
+        return l_name + " " + f_name;
     }
-    */
 
     public long getId() {
         return this.studentId;

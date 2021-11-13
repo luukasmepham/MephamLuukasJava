@@ -65,8 +65,18 @@ public class CourseService implements ICourseService {
 
     @Override
     public List<Course> getCoursesOfStudent(long studentId) {
-        // TODO Auto-generated method stub
-        return null;
+
+        Student student = getStudentById(studentId);
+        List<Course> studentsCourses = new ArrayList<>(); 
+
+        for (int i = 1; i <= courses.size(); i++) {
+            Course courseInCheck = getCourseById(Long.valueOf(i));
+            boolean isInCourse = courseInCheck.getStudent(student);
+            if (isInCourse == true) {
+                studentsCourses.add(getCourseById(Long.valueOf(i)));
+            }
+        }
+        return studentsCourses;
     }
 
 

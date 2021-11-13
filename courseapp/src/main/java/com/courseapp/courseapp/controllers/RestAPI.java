@@ -11,6 +11,7 @@ import com.courseapp.courseapp.services.CourseService;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.MediaType;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,13 +45,33 @@ public class RestAPI {
         return courseService.getStudents();
     }
 
-    @GetMapping("/courses/{id}")
-    public Course getCourseById(@PathVariable(value = "id") long courseId) {
-        return courseService.getCourseById(courseId);
+    @GetMapping(path = "/courses/{id}", produces = MediaType.TEXT_HTML_VALUE)
+    public String getCourseById(@PathVariable(value = "id") long courseId) {
+
+        String course = courseService.getCourseById(courseId).courseName();
+        String students = "";
+        List<String> listOfStudents = courseService.getCourseById(courseId).studentNames();
+
+        for (String student : listOfStudents) {
+            students += "<p>\n" + student + "</p>\n";
+        }
+
+        return "<html>\n" + "<header><title></title></header>\n" +
+          "<body>\n" + "<h2>\n" + course + "</h2>\n" + students + "</body>\n" + "</html>";
     }
 
-    @GetMapping("/students/{id}")
-    public Student getStudentById(@PathVariable(value = "id") long studentId) {
-        return courseService.getStudentById(studentId);
+    @GetMapping(path = "/students/{id}", produces = MediaType.TEXT_HTML_VALUE)
+    public String getStudentById(@PathVariable(value = "id") long studentId) {
+
+        String student = courseService.getStudentById(studentId).studentName();
+        String courses = "";
+        List<Course> listOfCourses = courseService.getCoursesOfStudent(studentId);
+
+        for (Course course : listOfCourses) {
+            courses += "<p>\n" + course.courseName() + "</p>\n";
+        }
+
+        return "<html>\n" + "<header><title></title></header>\n" +
+          "<body>\n" + "<h2>\n" + student + "</h2>\n"  + courses + "</body>\n" + "</html>";
     }
 }
