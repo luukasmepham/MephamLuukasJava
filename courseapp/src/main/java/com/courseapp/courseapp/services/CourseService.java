@@ -1,10 +1,10 @@
 package com.courseapp.courseapp.services;
 
 import com.courseapp.courseapp.interfaces.ICourseService;
+
 import com.courseapp.courseapp.models.Course;
 import com.courseapp.courseapp.models.Student;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
@@ -16,16 +16,13 @@ import java.util.NoSuchElementException;
 public class CourseService implements ICourseService {
 
     private List<Student> students;
-
     private List<Course> courses;
 
     public CourseService() throws FileNotFoundException {
 
         CourseFileService fileService = new CourseFileService();
-
         this.courses = fileService.readCoursesFromFile("src/main/java/com/courseapp/courseapp/data/Courses.txt");
         this.students = fileService.readStudentsFromFile("src/main/java/com/courseapp/courseapp/data/Students.txt");
-
     }
 
     @Override
@@ -66,18 +63,14 @@ public class CourseService implements ICourseService {
     @Override
     public List<Course> getCoursesOfStudent(long studentId) {
 
-        Student student = getStudentById(studentId);
         List<Course> studentsCourses = new ArrayList<>(); 
-
-        for (int i = 1; i <= courses.size(); i++) {
-            Course courseInCheck = getCourseById(Long.valueOf(i));
-            boolean isInCourse = courseInCheck.getStudent(student);
-            if (isInCourse == true) {
-                studentsCourses.add(getCourseById(Long.valueOf(i)));
+            for (int i = 1; i <= courses.size(); i++) {
+                Course courseInCheck = getCourseById(Long.valueOf(i));
+                boolean isInCourse = courseInCheck.getStudent(getStudentById(studentId));
+                if (isInCourse == true) {
+                    studentsCourses.add(getCourseById(Long.valueOf(i)));
+                }
             }
-        }
         return studentsCourses;
     }
-
-
 }

@@ -1,6 +1,5 @@
 package com.courseapp.courseapp.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,11 +10,11 @@ import com.courseapp.courseapp.services.CourseService;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.http.MediaType;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import org.springframework.http.MediaType;
 
 @RestController
 public class RestAPI {
@@ -25,13 +24,8 @@ public class RestAPI {
     
     @PostMapping("/add")
     public boolean addStudentToCourse(@RequestBody Map<String, Object> payload) {
-
-        String student = payload.get("sid").toString();
-        String course = payload.get("cid").toString();
-
-        long sid = Long.parseLong(student);
-        long cid = Long.parseLong(course);
-
+        long sid = Long.parseLong(payload.get("sid").toString());
+        long cid = Long.parseLong(payload.get("cid").toString());
 		return courseService.addStudentToCourse(sid, cid);
     }
 
@@ -50,14 +44,13 @@ public class RestAPI {
 
         String course = courseService.getCourseById(courseId).courseName();
         String students = "";
+
         List<String> listOfStudents = courseService.getCourseById(courseId).studentNames();
+            for (String student : listOfStudents) {students += "<p>" + student + "</p>\n";}
 
-        for (String student : listOfStudents) {
-            students += "<p>\n" + student + "</p>\n";
-        }
-
-        return "<html>\n" + "<header><title></title></header>\n" +
-          "<body>\n" + "<h2>\n" + course + "</h2>\n" + students + "</body>\n" + "</html>";
+        return "<html>\n" + 
+        "<header><title></title></header>\n" + 
+        "<body>\n" + "<h2>" + course + "</h2>\n" + students + "</body>\n" + "</html>";
     }
 
     @GetMapping(path = "/students/{id}", produces = MediaType.TEXT_HTML_VALUE)
@@ -65,13 +58,10 @@ public class RestAPI {
 
         String student = courseService.getStudentById(studentId).studentName();
         String courses = "";
+
         List<Course> listOfCourses = courseService.getCoursesOfStudent(studentId);
+            for (Course course : listOfCourses) {courses += "<p>" + course.courseName() + "</p>\n";}
 
-        for (Course course : listOfCourses) {
-            courses += "<p>\n" + course.courseName() + "</p>\n";
-        }
-
-        return "<html>\n" + "<header><title></title></header>\n" +
-          "<body>\n" + "<h2>\n" + student + "</h2>\n"  + courses + "</body>\n" + "</html>";
+        return "<html>\n" + "<header><title></title></header>\n" + "<body>\n" + "<h2>" + student + "</h2>\n"  + courses + "</body>\n" + "</html>";
     }
 }

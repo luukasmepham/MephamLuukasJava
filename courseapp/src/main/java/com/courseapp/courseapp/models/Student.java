@@ -10,10 +10,6 @@ public class Student {
     private String f_name;
     private String l_name;
 
-    public Student() {
-        
-    }
-
     public Student(String name) {
 
         this.studentId = count.incrementAndGet(); 
@@ -26,9 +22,7 @@ public class Student {
         this.l_name = l_name;
     }
 
-
     public String studentName() {
-
         return l_name + " " + f_name;
     }
 
@@ -42,6 +36,5 @@ public class Student {
 
     public String getL_Name() {
         return this.l_name;
-    }
-    
+    }  
 }
