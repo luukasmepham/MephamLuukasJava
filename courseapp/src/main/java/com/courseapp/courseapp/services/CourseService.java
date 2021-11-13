@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class CourseService implements ICourseService {
@@ -29,8 +30,7 @@ public class CourseService implements ICourseService {
 
     @Override
     public boolean addStudentToCourse(long studentId, long courseId) {
-        // TODO Auto-generated method stub
-        return false;
+        return getCourseById(courseId).setStudent(getStudentById(studentId));
     }
 
     @Override
@@ -45,13 +45,22 @@ public class CourseService implements ICourseService {
 
     @Override
     public Student getStudentById(long studentId) {
-        return null;
+        for (Student student : students) {
+            if (student.getId() == studentId) {
+              return student;
+            }
+          }
+          throw new NoSuchElementException();
     }
 
     @Override
     public Course getCourseById(long courseId) {
-        // TODO Auto-generated method stub
-        return null;
+        for (Course course : courses) {
+            if (course.getId() == courseId) {
+              return course;
+            }
+          }
+          throw new NoSuchElementException();
     }
 
     @Override
