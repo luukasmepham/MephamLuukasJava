@@ -12,10 +12,10 @@ public class Course {
     private String course_name;
     private String teacher_name;
     private String location;
-
     private List<Student> students = new ArrayList<>();
 
     public Course(String name) {
+
         this.courseId = count.incrementAndGet(); 
 
         String[] names = name.split("@");
@@ -29,7 +29,6 @@ public class Course {
     }
 
     public String courseName() {
-
         return course_name;
     }
 
@@ -54,39 +53,29 @@ public class Course {
     }
 
     public boolean setStudent(Student student) {
-
         if (students.size() <= 25) {
-
             students.add(student);
             return true;
         }
-
         else {
             return false;
         }
     }
 
     public boolean getStudent(Student student) {
-
         if (students.contains(student)) {
             return true;
         }
-
         else {
             return false;
         }
     }
 
     public List<String> studentNames() {
-
         List<String> studentNames = new ArrayList<>();
-        
-        for (Student student : students) {
-            studentNames.add(student.studentName());
-        }
-
+            for (Student student : students) {
+                studentNames.add(student.studentName());
+            }
         return studentNames;
     }
-
-
 }

@@ -22,6 +22,7 @@ public class RestAPI {
     @Autowired
     CourseService courseService;
     
+    // USE THIS JSON {”sid”: ”0”, ”cid”: ”1”}
     @PostMapping("/add")
     public boolean addStudentToCourse(@RequestBody Map<String, Object> payload) {
         long sid = Long.parseLong(payload.get("sid").toString());
